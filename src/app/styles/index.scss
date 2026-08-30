@@ -1,0 +1,77 @@
+@import './variables';
+@import './reset';
+@import './global';
+@import './mixins';
+
+
+
+:root {
+  // Background
+  --bg-primary: #{$bg-primary};
+  --bg-secondary: #{$bg-secondary};
+  --bg-hover: #{$bg-hover};
+
+  // Navigation
+  --nav-active: #{$nav-active};
+  --nav-active-hover: #{$nav-active-hover};
+  --nav-text: #{$nav-text};
+  --nav-text-active: #{$nav-text-active};
+  --nav-text-hover: #{$nav-text-hover};
+
+  // Brand
+  --color-primary: #{$primary};
+  --color-primary-hover: #{$primary-hover};
+  --color-primary-light: #{$primary-light};
+
+  // Text
+  --text-primary: #{$text-primary};
+  --text-secondary: #{$text-secondary};
+  --text-tertiary: #{$text-tertiary};
+  --text-inverse: #{$text-inverse};
+
+  // Borders
+  --border-color: #{$border-color};
+  --switch-border-color: #{$switch-border-color};
+  --border-radius: #{$border-radius};
+  --border-radius-btn: #{$border-radius-btn};
+
+  // Layout
+  --header-height: #{$header-height};
+
+  // Shadows
+  --shadow-sm: #{$shadow-sm};
+  --shadow-md: #{$shadow-md};
+}
+
+body[data-theme='dark'] {
+  // Background
+  --bg-primary: #{$dark-bg-primary};
+  --bg-secondary: #{$dark-bg-secondary};
+  --bg-hover: #{$dark-bg-hover};
+
+  // Navigation
+  --nav-active: #{$dark-nav-active};
+  --nav-active-hover: #{$dark-nav-active-hover};
+  --nav-text: #{$dark-nav-text};
+  --nav-text-active: #{$dark-nav-text-active};
+  --nav-text-hover: #{$dark-nav-text-hover};
+
+  // Brand
+  --color-primary: #{$dark-primary};
+  --color-primary-hover: #{$dark-primary-hover};
+  --color-primary-light: #{$dark-primary-light};
+
+  // Text
+  --text-primary: #{$dark-text-primary};
+  --text-secondary: #{$dark-text-secondary};
+  --text-tertiary: #{$dark-text-tertiary};
+  --text-inverse: #{$dark-text-inverse};
+
+  // Borders
+  --border-color: #{$dark-border-color};
+  --switch-border-color: #{$dark-switch-border-color};
+
+  // Shadows
+  --shadow-sm: #{$dark-shadow-sm};
+  --shadow-md: #{$dark-shadow-md};
+}

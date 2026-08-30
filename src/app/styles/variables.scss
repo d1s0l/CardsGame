@@ -1,0 +1,74 @@
+// Palette
+$color-white: #ffffff;
+$color-slate-50: #f8fafc;
+$color-slate-100: #f1f5f9;
+$color-slate-200: #e2e8f0;
+$color-slate-700: #334155;
+$color-slate-800: #1e293b;
+$color-slate-900: #0f172a;
+$color-blue-900: #114059;
+$color-blue-800: #166088;
+$color-blue-700: #2c5a7a;
+$color-blue-500: #5a8aaa;
+$color-blue-100: #d8ecf6;
+$color-blue-50: #edf7fb;
+$color-pink-300: #d99ac9;
+$color-pink-500: #c97bb5;
+$color-pink-700: #a85f94;
+
+// Brand
+$primary: $color-pink-500;
+$primary-hover: $color-pink-700;
+$primary-light: $color-pink-300;
+
+// Background
+$bg-primary: $color-white;
+$bg-secondary: $color-slate-50;
+$bg-hover: $color-slate-100;
+
+// Text
+$text-primary: $color-blue-900;
+$text-secondary: $color-blue-700;
+$text-tertiary: $color-blue-500;
+$text-inverse: $color-white;
+
+// Navigation
+$nav-active: $primary;
+$nav-active-hover: $primary-hover;
+$nav-text: $text-primary;
+$nav-text-active: $text-inverse;
+$nav-text-hover: $text-inverse;
+
+// Borders
+$border-color: $color-slate-200;
+$switch-border-color: $color-blue-800;
+$border-radius: 8px;
+$border-radius-btn: 50px;
+
+// Dark theme
+$dark-bg-primary: $color-slate-900;
+$dark-bg-secondary: $color-slate-800;
+$dark-bg-hover: $color-slate-700;
+$dark-primary: $color-pink-300;
+$dark-primary-hover: $color-pink-500;
+$dark-primary-light: $color-pink-700;
+$dark-text-primary: $color-blue-50;
+$dark-text-secondary: $color-blue-100;
+$dark-text-tertiary: $color-blue-500;
+$dark-text-inverse: $color-slate-900;
+$dark-nav-active: $dark-primary;
+$dark-nav-active-hover: $dark-primary-hover;
+$dark-nav-text: $dark-text-primary;
+$dark-nav-text-active: $dark-text-inverse;
+$dark-nav-text-hover: $dark-text-inverse;
+$dark-border-color: $color-slate-700;
+$dark-switch-border-color: $color-blue-100;
+$dark-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.35);
+$dark-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.45);
+
+// Layout
+$header-height: 64px;
+
+// Shadows
+$shadow-sm: 0 1px 2px 0 rgba(17, 64, 89, 0.08);
+$shadow-md: 0 4px 6px -1px rgba(17, 64, 89, 0.12);

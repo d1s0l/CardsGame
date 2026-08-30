@@ -1,0 +1,105 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+.title {
+    margin: 0 0 4px;
+    text-align: center;
+    font-size: clamp(1.9rem, 3vw, 2.5rem);
+    font-weight: 700;
+    color: #2f3b52;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: -0.04em;
+}
+
+
+
+.input {
+    margin-bottom: 24px;
+}
+
+.input:last-of-type {
+    margin-bottom: 24px;
+}
+
+.form button {
+    margin-top: 16px;
+}
+
+.metaRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 8px 0 24px;
+    font-family: 'Inter', sans-serif;
+}
+
+.checkboxLabel {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.74rem;
+    line-height: 1.5;
+    color: #5f6980;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+}
+
+.checkboxLabel input {
+    width: 15px;
+    height: 15px;
+    margin-top: 2px;
+    accent-color: #8e68ff;
+    flex-shrink: 0;
+}
+
+.checkboxLabel span {
+    display: block;
+}
+
+.link {
+    color: #7d7bff;
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-family: 'Inter', sans-serif;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+.authSwitch {
+    margin: -12px 0 20px;
+    text-align: center;
+    color: #5f6980;
+    font-size: 0.82rem;
+    font-family: 'Inter', sans-serif;
+}
+
+.authLink {
+    color: #7d7bff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.authLink:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+    .title {
+        margin-bottom: 24px;
+    }
+
+    .metaRow {
+        margin: 4px 0 20px;
+    }
+
+    .checkboxLabel {
+        font-size: 0.7rem;
+    }
+}

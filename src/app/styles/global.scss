@@ -1,0 +1,82 @@
+html,
+body {
+  margin: 0;
+  background-color: var(--bg-primary);
+}
+
+@font-face {
+    font-family: 'Soyuz Grotesk';
+    src: url('../../shared/fonts/Soyuz_Grotesk_Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+body {
+    padding: 30px 40px;
+    font-family: Inter, sans-serif;
+    color: var(--text-primary);
+    line-height: 1.6;
+
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 0;
+    }
+}
+
+h1,
+h2 {
+    font-family: 'Soyuz Grotesk', sans-serif;
+    font-weight: 700;
+}
+
+
+// Стили для скроллбара
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 4px;
+  
+  &:hover {
+    background: var(--color-primary-hover);
+  }
+}
+
+// Выделение текста
+::selection {
+  background: var(--color-primary);
+  color: var(--text-inverse);
+}
+
+
+
+
+// Анимации
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease;
+}
