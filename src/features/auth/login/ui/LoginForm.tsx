@@ -11,10 +11,11 @@ import Input from '../../../../shared/ui/LoginInput/Input';
 import LoginButton from '../../../../shared/ui/LoginButton/LoginButton';
 import PasswordInput from '../../../../shared/ui/PasswordInput/PasswordInput';
 import { useLoginMutation } from '../../../../app/api/users/usersApi';
+import { setToken } from '../../../../shared/lib/auth/token';
 
 export default function LoginForm() {
-    const [login, { isLoading, error}] = useLoginMutation()
-    const navigate = useNavigate()
+    const [login] = useLoginMutation();
+    const navigate = useNavigate();
 
     const {
         register,
@@ -27,7 +28,7 @@ export default function LoginForm() {
     const onSubmit = async (data: LoginFormValues) => {
         try {
             const response = await login(data).unwrap();
-            localStorage.setItem('token', response.token);
+            setToken(response.token)
             console.log('Авторизация успешна', response);
             navigate('/profile')
         } catch(error){

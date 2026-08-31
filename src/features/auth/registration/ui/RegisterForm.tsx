@@ -12,6 +12,7 @@ import type { RegisterFormValues } from '../model/types';
 import { registerSchema } from '../model/schema';
 
 import { useRegisterMutation } from '../../../../app/api/users/usersApi';
+import { setToken } from '../../../../shared/lib/auth/token';
 
 export default function RegisterForm() {
     const [registerUser, { isLoading, error }] = useRegisterMutation();
@@ -29,7 +30,7 @@ export default function RegisterForm() {
         try {
             const response = await registerUser(data).unwrap();
 
-            localStorage.setItem('token', response.token);
+            setToken(response.token);
             navigate('/login')
             console.log('Регистрация успешна:', response);
         } catch (error) {
