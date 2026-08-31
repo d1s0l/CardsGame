@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -11,7 +11,12 @@ import styles from './RegisterForm.module.scss';
 import type { RegisterFormValues } from '../model/types';
 import { registerSchema } from '../model/schema';
 
+import { useRegisterMutation } from '../../../../app/api/users/usersApi';
+
 export default function RegisterForm() {
+    const [registerUser, { isLoading, error }] = useRegisterMutation();
+    const navigate = useNavigate()
+
     const {
         register,
         handleSubmit,
@@ -20,25 +25,43 @@ export default function RegisterForm() {
         resolver: zodResolver(registerSchema),
     });
 
-    const onSubmit = (data: RegisterFormValues) => {
-        console.log(data);
+    const onSubmit = async (data: RegisterFormValues) => {
+        try {
+            const response = await registerUser(data).unwrap();
+
+            localStorage.setItem('token', response.token);
+            navigate('/login')
+            console.log('Регистрация успешна:', response);
+        } catch (error) {
+            console.error('Ошибка регистрации:', error);
+        }
     };
 
     return (
-        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-            <h1 className={styles.title}>Создайте аккаунт</h1>
+        <form
+            className={styles.form}
+            onSubmit={handleSubmit(onSubmit)}
+        >
+            <h1 className={styles.title}>
+                Создайте аккаунт
+            </h1>
 
             <p className={styles.authSwitch}>
                 Уже зарегистрированы?{' '}
-                <Link to="/login" className={styles.authLink}>Войти</Link>
+                <Link
+                    to="/login"
+                    className={styles.authLink}
+                >
+                    Войти
+                </Link>
             </p>
 
             <Input
                 className={styles.input}
                 title="Как к вам обращаться?"
-                {...register('name')}
+                {...register('username')}
                 placeholder="Введите имя профиля"
-                error={errors.name?.message}
+                error={errors.username?.message}
             />
 
             <Input
@@ -58,9 +81,19 @@ export default function RegisterForm() {
                 error={errors.password?.message}
             />
 
-            <LoginButton type="submit">
-                Зарегистрироваться
+            <LoginButton
+                type="submit"
+                disabled={isLoading}
+            >
+                {isLoading ? 'Регистрация...' : 'Зарегистрироваться'}
             </LoginButton>
+
+            {error && (
+                <p>
+                    Не удалось зарегистрироваться
+                </p>
+            )}
         </form>
     );
 }
+
