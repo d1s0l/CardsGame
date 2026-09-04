@@ -4,7 +4,8 @@ export interface User {
   username: string;
   role: 'user' | 'admin'
   createdAt: string;
-  updeatedAt: string
+  updeatedAt: string;
+  city?: string;
 };
 
 export interface UserPreferences {

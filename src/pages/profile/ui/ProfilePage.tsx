@@ -3,6 +3,7 @@ import {
 } from '../../../app/api/users/usersApi';
 
 import LogoutButton from '../../../features/auth/logout/ui/LogoutButton';
+import ErrorMessage from '../../../shared/ui/ErrorMessage/ErrorMessaage';
 import styles from './ProfilePage.module.scss';
 
 export default function ProfilePage() {
@@ -10,6 +11,7 @@ export default function ProfilePage() {
         data: profile,
         isLoading: isProfileLoading,
         error: profileError,
+        refetch,
     } = useGetProfileQuery();
 
     if (isProfileLoading) {
@@ -17,7 +19,7 @@ export default function ProfilePage() {
     }
 
     if (profileError) {
-        return <div>Не удалось загрузить профиль</div>;
+        return <ErrorMessage title='Не удалось загрузить профиль' description='Попробуйте повторить попытку' onRetry={() => refetch()}/>;
     }
 
     return (
