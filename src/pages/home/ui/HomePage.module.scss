@@ -1,6 +1,14 @@
 .page {
-    min-height: calc(100vh - 60px);
+    height: calc(100vh - 160px);
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+    .page {
+        height: auto;
+        min-height: auto;
+    }
 }
