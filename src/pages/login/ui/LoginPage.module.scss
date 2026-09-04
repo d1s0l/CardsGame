@@ -9,6 +9,7 @@
     background-position: center;
     background-repeat: no-repeat;
     padding: 32px 24px;
+    transition: background-color 0.3s ease;
 }
 
 .card {
@@ -20,6 +21,11 @@
     box-shadow: var(--shadow-md);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    transition:
+        background-color 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease,
+        color 0.3s ease;
 }
 
 @media (max-width: 768px) {
