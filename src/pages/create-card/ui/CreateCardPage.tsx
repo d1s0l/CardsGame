@@ -1,12 +1,26 @@
-import styles from './CreateCardPage.module.scss';
+import CreateCardForm from '../../../features/card/create/ui/CreateCardForm/CreateCardForm';
+import styles from './CreateCardPage.module.scss'
+
 
 export default function CreateCardPage() {
   return (
-    <main className={styles.page}>
+    <main>
       <section className={styles.card}>
-        <h1 className={styles.title}>Создать карточку</h1>
-        <p className={styles.subtitle}>Скоро здесь будет редактор карточек.</p>
+            <header className={styles.header}>
+                    <div>
+                        <p className={styles.eyebrow}>
+                            Новая карточка
+                        </p>
+
+                        <h1 className={styles.title}>
+                            Создать модуль
+                        </h1>
+                    </div>
+
+
+                </header>
       </section>
+      <CreateCardForm />
     </main>
   );
 }
