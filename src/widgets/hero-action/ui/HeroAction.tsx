@@ -1,9 +1,10 @@
-import styles from './HeroAction.module.scss'
+import { Link } from 'react-router-dom';
+import styles from './HeroAction.module.scss';
 
 export default function HeroAction(){
     return(
         <section className={styles.block}>
-            <button className={styles.btn_create}>
+            <Link to='/create-card' className={styles.btn_create}>
                 <div className={styles.content}>
                     <p className={styles.title}>создавайте</p>
                     <div className={styles.line}></div>
@@ -13,8 +14,8 @@ export default function HeroAction(){
                     </p>
                 </div>
                 <img className={styles.arrow} src="/arrow.svg" alt="" />
-            </button>
-            <button className={styles.btn_search}>
+            </Link>
+            <Link to='/find' className={styles.btn_search}>
                 <div className={styles.content}>
                     <p className={styles.title}>находите</p>
                     <div className={styles.line}></div>
@@ -24,7 +25,7 @@ export default function HeroAction(){
                     </p>
                 </div>
                 <img className={styles.arrow} src="/arrow.svg" alt="" />
-            </button>
+            </Link>
         </section>
     )
 }

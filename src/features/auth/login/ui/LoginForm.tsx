@@ -1,6 +1,6 @@
 import styles from './LoginForm.module.scss';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -10,8 +10,13 @@ import { loginSchema } from '../model/schema';
 import Input from '../../../../shared/ui/LoginInput/Input';
 import LoginButton from '../../../../shared/ui/LoginButton/LoginButton';
 import PasswordInput from '../../../../shared/ui/PasswordInput/PasswordInput';
+import { useLoginMutation } from '../../../../app/api/users/usersApi';
+import { setToken } from '../../../../shared/lib/auth/token';
 
 export default function LoginForm() {
+    const [login] = useLoginMutation();
+    const navigate = useNavigate();
+
     const {
         register,
         handleSubmit,
@@ -20,8 +25,15 @@ export default function LoginForm() {
         resolver: zodResolver(loginSchema),
     });
 
-    const onSubmit = (data: LoginFormValues) => {
-        console.log(data);
+    const onSubmit = async (data: LoginFormValues) => {
+        try {
+            const response = await login(data).unwrap();
+            setToken(response.token)
+            console.log('Авторизация успешна', response);
+            navigate('/profile')
+        } catch(error){
+            console.error('Ошибка авторизации:', error)
+        }
     };
 
     return (
