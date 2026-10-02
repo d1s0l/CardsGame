@@ -26,6 +26,9 @@ importers:
       jsonwebtoken:
         specifier: ^9.0.3
         version: 9.0.3
+      prisma:
+        specifier: 8.0.0-rc.15
+        version: 8.0.0-rc.15(@types/node@26.6.2)(@vercel/nft@1.11.0)(magicast@0.5.5)(typanion@3.14.0)(typescript@7.0.2)(ws@8.21.3)
     devDependencies:
       '@types/bcrypt':
         specifier: ^6.0.0
@@ -42,9 +45,6 @@ importers:
       '@types/node':
         specifier: ^26.6.2
         version: 26.6.2
-      prisma:
-        specifier: 8.0.0-rc.15
-        version: 8.0.0-rc.15(@types/node@26.6.2)(@vercel/nft@1.11.0)(magicast@0.5.5)(typanion@3.14.0)(typescript@7.0.2)(ws@8.21.3)
       tsx:
         specifier: ^4.23.13
         version: 4.23.13
