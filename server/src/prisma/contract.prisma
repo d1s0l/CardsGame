@@ -1,0 +1,28 @@
+// use prisma-8
+
+model User {
+  id        String @id
+  email     String @unique
+  password  String
+  username  String
+  avatarUrl String?
+
+  cards Card[]
+}
+
+model Card {
+  id       String @id
+  userId   String
+  title    String
+  question String
+  answer   String
+  topic    String
+  tags     String
+  status   String @default("published")
+
+  user User @relation(
+    fields: [userId],
+    references: [id],
+    onDelete: Cascade
+  )
+}
