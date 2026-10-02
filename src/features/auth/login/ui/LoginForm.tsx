@@ -14,7 +14,7 @@ import { useLoginMutation } from '../../../../app/api/users/usersApi';
 import { setToken } from '../../../../shared/lib/auth/token';
 
 export default function LoginForm() {
-    const [login] = useLoginMutation();
+    const [login, { error }] = useLoginMutation();
     const navigate = useNavigate();
 
     const {
@@ -29,10 +29,9 @@ export default function LoginForm() {
         try {
             const response = await login(data).unwrap();
             setToken(response.token)
-            console.log('Авторизация успешна', response);
             navigate('/profile')
-        } catch(error){
-            console.error('Ошибка авторизации:', error)
+        } catch {
+            return;
         }
     };
 
@@ -66,6 +65,8 @@ export default function LoginForm() {
             </div>
 
             <LoginButton />
+
+            {error && <p role="alert">Не удалось войти. Проверьте email и пароль.</p>}
 
             <p className={styles.footerText}>
                 Ещё нет аккаунта?{' '}

@@ -17,59 +17,80 @@ If you are developing a production application, we recommend updating the config
 
 ```js
 export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+  # CardsGame
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+  CardsGame is a flashcard learning application. Users register and sign in, create cards, save drafts, review their cards, edit or delete them, and check answers.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+  ## Stack
 
-```
+  - Frontend: React, TypeScript, Vite, Redux Toolkit Query, React Hook Form, Zod, SCSS modules, Feature-Sliced Design.
+  - Backend: Express 5, TypeScript, bcrypt, JWT, Prisma 8 RC, SQLite.
+  - Deployment: Docker Compose, Nginx, Node.js 22.
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+  ## Local development
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+  Requirements: Node.js 22 or newer and pnpm 10.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+  Install dependencies from the repository root and backend package:
 
-```
+  ```sh
+  pnpm install
+  pnpm --dir server install
+  ```
+
+  Create `server/.env` from `server/.env.example` and set a private `JWT_SECRET`. Then run the API and frontend in separate terminals:
+
+  ```sh
+  pnpm --dir server dev
+  ```
+
+  ```sh
+  pnpm dev
+  ```
+
+  The frontend runs at `http://localhost:5173`; the API runs at `http://localhost:3000`. Set `VITE_API_URL` to `http://localhost:3000/api` in the frontend environment.
+
+  SQLite data is stored in `server/dev.db` during local development. The Prisma contract source is `server/src/prisma/contract.prisma`; generated contract artifacts are emitted by Prisma CLI and must not be edited manually.
+
+  ## Docker Compose
+
+  Copy the root `.env.example` to `.env`, replace `JWT_SECRET` with a long random value, then build and start both services:
+
+  ```sh
+  docker compose up --build
+  ```
+
+  The frontend is available at `http://localhost:8080` and the API at `http://localhost:3000`. Compose stores SQLite data in the persistent `cards-data` volume. `VITE_API_URL`, `BACKEND_PORT`, and `FRONTEND_PORT` can be overridden in `.env`; because Vite embeds its API URL at build time, rebuild the frontend image after changing `VITE_API_URL`.
+
+  Stop the services with `docker compose down`. The named database volume is retained; `docker compose down -v` also removes it and permanently deletes its data.
+
+  ## API
+
+  Protected routes require `Authorization: Bearer <token>`.
+
+  | Method | Path | Purpose |
+  | --- | --- | --- |
+  | `POST` | `/api/auth/register` | Create an account |
+  | `POST` | `/api/auth/login` | Sign in |
+  | `GET` | `/api/auth/me` | Return the authenticated user |
+  | `POST` | `/api/auth/logout` | Complete client-side JWT logout |
+  | `GET` | `/api/user/profile` | Return the authenticated user's profile |
+  | `GET` | `/api/cards` | List the user's published cards |
+  | `GET` | `/api/cards/:cardId` | Read an owned card |
+  | `POST` | `/api/cards` | Create a published card |
+  | `POST` | `/api/cards/drafts` | Save a draft |
+  | `PATCH` | `/api/cards/:id` | Partially update an owned card |
+  | `DELETE` | `/api/cards/:id` | Delete an owned card |
+  | `POST` | `/api/cards/:cardId/answer` | Check an answer for an owned published card |
+
+  Card tags are `string[]` in the API and JSON-encoded text in SQLite. Card IDs are server-generated UUIDs; ownership is enforced by the authenticated user ID.
+
+  ## Checks
+
+  ```sh
+  pnpm build
+  pnpm --dir server exec tsc --noEmit -p src/tsconfig.json
+  pnpm --dir server test
+  pnpm --dir server build
+  pnpm --dir server exec prisma db verify --db ./dev.db
+  ```

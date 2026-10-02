@@ -1,14 +1,17 @@
 .hero {
     width: 100%;
     min-width: 0;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     gap: 32px;
 }
 
 .cursor {
     display: block;
+    width: 100%;
 }
 
 .text {
@@ -16,10 +19,11 @@
     min-width: 0;
 }
 
-.statecolor {
+.statecolor,
+.gradientcolor {
     font-family: 'Soyuz Grotesk', sans-serif;
     font-weight: 700;
-    font-size: 100px;
+    font-size: clamp(56px, 5.2vw, 100px);
     line-height: 100%;
     text-transform: uppercase;
     letter-spacing: 0;
@@ -27,82 +31,86 @@
 
 .gradientcolor {
     display: flex;
-    justify-content: space-between;
+    width: fit-content;
     align-items: center;
-    font-family: 'Soyuz Grotesk', sans-serif;
-    font-weight: 700;
-    font-size: 100px;
-    line-height: 100%;
-    text-transform: uppercase;
-    letter-spacing: 0;
-    background: linear-gradient(90deg, #166088 0%, #D27CB7 100%);
+    gap: 30px;
+
+    background: linear-gradient(90deg, #166088 0%, #d27cb7 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;
 }
 
-.imageBlock1 {
-    display: inline-block;
-
-    width: 522px;
-    height: 60px;
-
-    margin: 0 0 0 25px;
-
-    border-radius: 999px;
-
-    overflow: hidden;
-
-    vertical-align: middle;
-
-    img {
-        width: 100%;
-        height: 100%;
-
-        object-fit: cover;
-        display: block;
-    }
-}
-
+.imageBlock1,
 .imageBlock2 {
     display: inline-block;
 
-    width: 272px;
-    height: 60px;
-
-    margin: 0;
-
     border-radius: 999px;
-
     overflow: hidden;
-
     vertical-align: middle;
 
     img {
+        display: block;
         width: 100%;
         height: 100%;
-
         object-fit: cover;
-        display: block;
     }
 }
 
-@media (max-width: 1200px) {
+.imageBlock1 {
+    width: min(522px, 45vw);
+    height: clamp(42px, 3.1vw, 60px);
+}
+
+.imageBlock2 {
+    width: min(272px, 25vw);
+    height: clamp(42px, 3.1vw, 60px);
+}
+
+/* Небольшая высота экрана */
+@media (max-height: 800px) and (min-width: 761px) {
+    .hero {
+        gap: 20px;
+    }
+
     .statecolor,
     .gradientcolor {
-        font-size: clamp(56px, 8vw, 100px);
+        font-size: clamp(52px, 4.5vw, 82px);
     }
 
-    .imageBlock1 {
-        width: min(522px, 45vw);
-    }
-
+    .imageBlock1,
     .imageBlock2 {
-        width: min(272px, 25vw);
+        height: 48px;
+    }
+
+    .cursor {
+        width: 80%;
     }
 }
 
+/* Очень маленькая высота */
+@media (max-height: 650px) and (min-width: 761px) {
+    .hero {
+        gap: 16px;
+    }
+
+    .statecolor,
+    .gradientcolor {
+        font-size: clamp(44px, 4vw, 70px);
+    }
+
+    .imageBlock1,
+    .imageBlock2 {
+        height: 40px;
+    }
+
+    .cursor {
+        width: 56px;
+    }
+}
+
+/* Планшет / узкий экран */
 @media (max-width: 760px) {
     .hero {
         align-items: flex-start;
@@ -130,6 +138,7 @@
     }
 }
 
+/* Телефон */
 @media (max-width: 560px) {
     .hero {
         display: block;

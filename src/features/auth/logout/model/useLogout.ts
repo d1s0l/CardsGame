@@ -9,13 +9,11 @@ export function useLogout() {
     const [logout, { isLoading: isLogoutLoading, error: logoutError }] = useLogoutMutation();
 
     const handleLogout = async () => {
-        try {
-            await logout().unwrap();
-            removeToken();
-            navigate('/');
-        } catch (error) {
-            console.error('Ошибка выхода:', error);
-        }
+        const result = await logout();
+        if ('error' in result) return;
+
+        removeToken();
+        navigate('/');
     };
 
     return {

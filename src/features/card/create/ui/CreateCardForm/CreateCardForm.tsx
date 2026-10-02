@@ -1,6 +1,11 @@
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useCreateCardMutation, useSaveDraftMutation } from '../../../../../app/api/cards/cardsApi';
+import {
+    useCreateCardMutation,
+    useSaveDraftMutation,
+    useUpdateCardMutation,
+} from '../../../../../app/api/cards/cardsApi';
 
 import styles from './CreateCardForm.module.scss';
 
@@ -18,8 +23,30 @@ const topicOptions = [
     'UI/UX',
 ];
 
-export default function CreateCardForm() {
-    const [createCard, {isLoading}] = useCreateCardMutation();
+const emptyValues: CreateCardFormValues = {
+    title: '',
+    question: '',
+    answer: '',
+    topic: '',
+    tags: [],
+};
+
+interface CreateCardFormProps {
+    mode?: 'create' | 'edit';
+    initialValues?: CreateCardFormValues;
+    cardId?: string;
+    onSuccess?: () => void;
+}
+
+export default function CreateCardForm({
+    mode = 'create',
+    initialValues,
+    cardId,
+    onSuccess,
+}: CreateCardFormProps) {
+    const [actionError, setActionError] = useState('');
+    const [createCard, {isLoading: isCreating}] = useCreateCardMutation();
+    const [updateCard, {isLoading: isUpdating}] = useUpdateCardMutation();
     const [saveDraft, {isLoading: isSavingDraft}] = useSaveDraftMutation();
 
     const {
@@ -27,36 +54,45 @@ export default function CreateCardForm() {
         handleSubmit,
         control,
         getValues,
+        reset,
         formState: { errors },
     } = useForm<CreateCardFormValues>({
         resolver: zodResolver(createCardSchema),
-        defaultValues: {
-            title: '',
-            question: '',
-            answer: '',
-            topic: '',
-            tags: [],
-        },
+        defaultValues: emptyValues,
     });
+
+    useEffect(() => {
+        if (initialValues) {
+            reset(initialValues);
+        }
+    }, [initialValues, reset]);
 
     const handleSaveDraft = async (data: CreateCardFormValues) => {
         try {
-            const response = await saveDraft(data).unwrap();
-            console.log('Карточка добавлена в черновики', response);
-        } catch(error) {
-            console.log('Ошибка сохранения', error)
+            await saveDraft(data).unwrap();
+            setActionError('');
+        } catch {
+            setActionError('Не удалось сохранить черновик');
         }
     };
 
     const onSubmit = async (data: CreateCardFormValues) => {
         try {
-            const response = await createCard(data).unwrap();
+            if (mode === 'edit' && cardId) {
+                await updateCard({ id: cardId, data }).unwrap();
+            } else {
+                await createCard(data).unwrap();
+            }
 
-            console.log('Карточка создана', response)
-        } catch(error) {
-            console.log('Ошибка создания карточки:', error)
+            setActionError('');
+            onSuccess?.();
+        } catch {
+            setActionError('Не удалось сохранить карточку');
         }
     };
+
+    const isSubmitting = isCreating || isUpdating;
+    const isEditMode = mode === 'edit';
 
     return (
         <form
@@ -144,27 +180,33 @@ export default function CreateCardForm() {
 
             <div className={styles.actions}>
 
-                <button
+                {!isEditMode && (
+                    <button
                         type="button"
                         className={styles.secondaryButton}
                         onClick={() => handleSaveDraft(getValues())}
-                        disabled={isSavingDraft}
+                        disabled={isSavingDraft || isSubmitting}
                     >
                         {isSavingDraft
                             ? 'Сохранение...'
                             : 'Сохранить черновик'
                         }
-                </button>
+                    </button>
+                )}
 
                 <button
                     type="submit"
                     className={styles.primaryButton}
-                    disabled={isLoading}
+                    disabled={isSubmitting}
                 >
-                    {isLoading ? 'Создание...' : 'Создать карточку'}
+                    {isSubmitting
+                        ? (isEditMode ? 'Сохранение...' : 'Создание...')
+                        : (isEditMode ? 'Сохранить изменения' : 'Создать карточку')}
                 </button>
 
             </div>
+
+            {actionError && <p className={styles.error} role="alert">{actionError}</p>}
         </form>
     );
 }

@@ -75,7 +75,7 @@ export default function ProfilePage() {
                                 </span>
 
                                 <span className={styles.fieldValue}>
-                                    {profile?.city ?? '—'}
+                                    —
                                 </span>
                             </div>
                         </div>

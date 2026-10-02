@@ -5,3 +5,9 @@ export interface CreateCardRequest {
     topic: string;
     tags: string[];
 }
+
+export interface GetCardsParams {
+  topic?: string;
+  tag?: string;
+  page?: number;
+}

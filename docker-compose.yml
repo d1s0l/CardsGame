@@ -1,0 +1,58 @@
+services:
+  db-init:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+      target: build
+    environment:
+      CARDS_DB_PATH: /app/data/cards.sqlite
+    volumes:
+      - cards-data:/app/data
+    command:
+      - sh
+      - -c
+      - pnpm exec prisma db update --db /app/data/cards.sqlite && chown -R node:node /app/data
+    restart: "no"
+
+  api:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      CARDS_DB_PATH: /app/data/cards.sqlite
+      JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET in the root .env file}
+    ports:
+      - "${BACKEND_PORT:-3000}:3000"
+    volumes:
+      - cards-data:/app/data
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - "fetch('http://127.0.0.1:3000/').then((response) => process.exit(response.ok ? 0 : 1)).catch(() => process.exit(1))"
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: ${VITE_API_URL:-http://localhost:3000/api}
+    ports:
+      - "${FRONTEND_PORT:-8080}:80"
+    depends_on:
+      db-init:
+        condition: service_completed_successfully
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  cards-data:
