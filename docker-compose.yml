@@ -37,6 +37,9 @@ services:
       timeout: 3s
       retries: 5
       start_period: 10s
+    depends_on:
+      db-init:
+        condition: service_completed_successfully
     restart: unless-stopped
 
   frontend:
