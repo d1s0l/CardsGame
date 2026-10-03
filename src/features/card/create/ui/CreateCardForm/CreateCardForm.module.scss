@@ -8,6 +8,9 @@
   transition: background-color 0.3s ease;
 }
 
+.error {
+  color: red;
+}
 .card {
   width: min(100%, 860px);
   padding: 32px;

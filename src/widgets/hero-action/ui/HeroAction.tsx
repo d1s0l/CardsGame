@@ -4,7 +4,7 @@ import styles from './HeroAction.module.scss';
 export default function HeroAction(){
     return(
         <section className={styles.block}>
-            <Link to='/create-card' className={styles.btn_create}>
+            <Link to='/create' className={styles.btn_create}>
                 <div className={styles.content}>
                     <p className={styles.title}>создавайте</p>
                     <div className={styles.line}></div>
@@ -15,7 +15,7 @@ export default function HeroAction(){
                 </div>
                 <img className={styles.arrow} src="/arrow.svg" alt="" />
             </Link>
-            <Link to='/find' className={styles.btn_search}>
+            <Link to='/libary' className={styles.btn_search}>
                 <div className={styles.content}>
                     <p className={styles.title}>находите</p>
                     <div className={styles.line}></div>

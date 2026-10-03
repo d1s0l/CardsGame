@@ -1,11 +1,8 @@
 export interface User {
-  id: number;
+  id: string;
   email: string;
   username: string;
-  role: 'user' | 'admin'
-  createdAt: string;
-  updeatedAt: string;
-  city?: string;
+  avatarUrl: string | null;
 };
 
 export interface UserPreferences {

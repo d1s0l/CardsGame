@@ -1,0 +1,98 @@
+.page {
+  min-height: calc(100vh - 140px);
+  padding-bottom: 40px;
+}
+
+.card,
+.statusCard {
+  width: min(100%, 860px);
+  margin: 0 auto;
+  padding: 32px;
+  border: 1px solid var(--border-color);
+  border-radius: 28px;
+  background: var(--bg-secondary);
+  box-shadow: var(--shadow-md);
+  box-sizing: border-box;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--text-secondary);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.title,
+.statusTitle {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: clamp(2rem, 3vw, 2.7rem);
+  line-height: 1.1;
+}
+
+.backLink {
+  display: inline-flex;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.backLink:hover {
+  border-color: var(--color-primary);
+  transform: translateY(-1px);
+}
+
+.statusCard {
+  max-width: 560px;
+  margin-top: 15vh;
+  text-align: center;
+}
+
+.statusText {
+  margin: 10px auto 0;
+  color: var(--text-secondary);
+}
+
+.statusCard .backLink {
+  margin-top: 24px;
+}
+
+.success {
+  margin: 0 0 20px;
+  padding: 12px 14px;
+  border: 1px solid #86efac;
+  border-radius: 12px;
+  background: #dcfce7;
+  color: #166534;
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding-bottom: 24px;
+  }
+
+  .card,
+  .statusCard {
+    padding: 24px 18px;
+    border-radius: 20px;
+  }
+
+  .header {
+    flex-direction: column;
+  }
+}

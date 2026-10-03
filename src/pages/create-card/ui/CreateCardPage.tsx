@@ -6,7 +6,7 @@ export default function CreateCardPage() {
   return (
     <main>
       <section className={styles.card}>
-            <header className={styles.header}>
+        <header className={styles.header}>
                     <div>
                         <p className={styles.eyebrow}>
                             Новая карточка

@@ -1,0 +1,15 @@
+.git
+.vscode
+node_modules
+**/node_modules
+dist
+dist-ssr
+server/dist
+server/dev.db
+server/dev.db-*
+server/.env
+server/.env.*
+!server/.env.example
+.env
+.env.*
+!.env.example

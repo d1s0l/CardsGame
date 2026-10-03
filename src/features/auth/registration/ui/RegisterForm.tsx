@@ -32,9 +32,8 @@ export default function RegisterForm() {
 
             setToken(response.token);
             navigate('/login')
-            console.log('Регистрация успешна:', response);
-        } catch (error) {
-            console.error('Ошибка регистрации:', error);
+        } catch {
+            return;
         }
     };
 

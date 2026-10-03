@@ -4,6 +4,14 @@ body {
   background-color: var(--bg-primary);
 }
 
+html {
+  scrollbar-gutter: stable;
+}
+
+:root {
+  --page-inline-padding: 40px;
+}
+
 @font-face {
     font-family: 'Soyuz Grotesk';
     src: url('../../shared/fonts/Soyuz_Grotesk_Bold.otf') format('opentype');
@@ -13,7 +21,7 @@ body {
 }
 
 body {
-    padding: 30px 40px;
+    padding: 30px var(--page-inline-padding);
     font-family: Inter, sans-serif;
     color: var(--text-primary);
     line-height: 1.6;
@@ -24,7 +32,18 @@ body {
         color 0.3s ease;
 }
 
+// Radix adds padding-right to body while AlertDialog locks scroll.
+// The stable scrollbar gutter already reserves this space, so preserve the
+// page's original inline padding to prevent the layout from narrowing.
+body[data-scroll-locked] {
+    padding-right: var(--page-inline-padding) !important;
+}
+
 @media (max-width: 768px) {
+    :root {
+        --page-inline-padding: 0px;
+    }
+
     body {
         padding: 0;
     }
