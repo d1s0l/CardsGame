@@ -3,15 +3,17 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile
-      target: build
+      target: runtime
     environment:
       CARDS_DB_PATH: /app/data/cards.sqlite
     volumes:
       - cards-data:/app/data
     command:
-      - sh
-      - -c
-      - pnpm exec prisma db update --db /app/data/cards.sqlite && chown -R node:node /app/data
+      - /app/node_modules/.bin/prisma
+      - db
+      - update
+      - --db
+      - /app/data/cards.sqlite
     restart: "no"
 
   api:
